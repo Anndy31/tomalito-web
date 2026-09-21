@@ -1,0 +1,55 @@
+---
+import { withBase } from '../utils/paths.js';
+import Header from '../components/layout/Header.astro';
+import Footer from '../components/layout/Footer.astro';
+import WhatsappFloat from '../components/layout/WhatsappFloat.astro';
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description: string;
+  image?: string;
+}
+
+const {
+  title,
+  description,
+  image = '/images/lookbook/hero.jpg',
+} = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" href={withBase('/images/brand/favicon.png')} />
+
+    <title>{title} · Tomalito</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalURL} />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={`${title} · Tomalito`} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={new URL(withBase(image), Astro.site)} />
+    <meta property="og:url" content={canonicalURL} />
+
+    <!-- Twitter/X -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={`${title} · Tomalito`} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={new URL(withBase(image), Astro.site)} />
+  </head>
+  <body>
+    <Header />
+    <main>
+      <slot />
+    </main>
+    <Footer />
+    <WhatsappFloat />
+  </body>
+</html>

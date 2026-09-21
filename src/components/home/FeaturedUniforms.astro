@@ -1,0 +1,24 @@
+---
+import { withBase } from '../../utils/paths.js';
+import { getPublishedUniforms } from '../../data/uniforms.js';
+const photos = getPublishedUniforms().slice(0, 3)
+  .map((school) => ({ image: school.images[0], school }))
+  .filter(({ image }) => Boolean(image));
+---
+{photos.length > 0 && (
+<section class="container-site pb-16 md:pb-24">
+  <div class="flex flex-wrap items-end justify-between gap-5 mb-9">
+    <div><p class="eyebrow mb-3">La colección</p><h2 class="text-3xl md:text-4xl">Hechos para cada día.</h2></div>
+    <a href={withBase('/coleccion')} class="text-xs uppercase tracking-widest underline underline-offset-8">Explorar colegios ↗</a>
+  </div>
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    {photos.map(({ image, school }) => (
+      <a href={withBase(`/coleccion/${school.slug}`)} class="group">
+        <div class="aspect-[4/5] bg-white overflow-hidden"><img src={withBase(image)} alt={school.name} width="800" height="1000" loading="lazy" class="w-full h-full object-contain transition-transform duration-500 group-hover:scale-[1.025]" /></div>
+        <p class="eyebrow mt-4 text-carbon/60">Colección escolar</p>
+        <p class="text-sm mt-2">{school.name} ↗</p>
+      </a>
+    ))}
+  </div>
+</section>
+)}

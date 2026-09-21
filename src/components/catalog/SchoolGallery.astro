@@ -1,0 +1,83 @@
+---
+import { withBase } from '../../utils/paths.js';
+interface Props { images: string[]; name: string; compact?: boolean; }
+const { images, name, compact = false } = Astro.props;
+---
+<div class="school-gallery" data-gallery>
+  {images.length === 0 && <div class="bg-neutral-50 border border-line py-12 px-6 text-center"><p class="eyebrow text-carbon/50 mb-3">Colección escolar</p><p class="text-xl font-display">Próximamente, nuestras prendas.</p><p class="mt-2 text-sm text-carbon/60">Consulta por los uniformes de esta institución.</p></div>}
+  <div class:list={["grid gap-x-3 gap-y-5 md:gap-x-5", compact ? "grid-cols-2 md:grid-cols-3 lg:grid-cols-4" : "grid-cols-2 lg:grid-cols-3"]}>
+    {images.map((image, index) => (
+      <button type="button" data-photo data-src={withBase(image)} data-alt={`${name} · Fotografía ${index + 1}`} class="group text-left" aria-label={`Ampliar fotografía ${index + 1} de ${name}`}>
+        <div class="aspect-[4/5] overflow-hidden bg-white">
+          <img src={withBase(image)} alt={`${name} · Fotografía ${index + 1}`} loading="lazy" width="800" height="1000" class="h-full w-full object-contain transition-transform duration-500 group-hover:scale-[1.025]" />
+        </div>
+        <div class="mt-3 text-[10px] uppercase tracking-[0.15em] text-carbon/65">Tomalito {String(index + 1).padStart(2, '0')}</div>
+      </button>
+    ))}
+  </div>
+  <dialog aria-label={`Fotografías de ${name}`} class="gallery-dialog">
+    <div class="flex items-center justify-between gap-4 p-4 md:px-8 border-b border-line">
+      <p class="text-xs uppercase tracking-widest">{name}</p>
+      <button type="button" data-close class="p-3 text-sm" aria-label="Cerrar galería">Cerrar ×</button>
+    </div>
+    <img data-expanded alt="" class="block w-full object-contain" style="height: min(70dvh, 850px)" />
+    <div class="flex items-center justify-center gap-8 p-4">
+      <button type="button" data-prev aria-label="Foto anterior" class="p-3 text-2xl">←</button>
+      <p data-counter aria-live="polite" class="text-xs tracking-widest"></p>
+      <button type="button" data-next aria-label="Foto siguiente" class="p-3 text-2xl">→</button>
+    </div>
+  </dialog>
+</div>
+<style>
+.gallery-dialog { width: min(1100px, 96vw); max-width: 96vw; max-height: 96dvh; padding: 0; border: 0; background: #fff; color: #292929; }
+.gallery-dialog::backdrop { background: rgb(0 0 0 / 75%); }
+.gallery-dialog button { min-width: 48px; min-height: 48px; touch-action: manipulation; }
+@media (max-width: 639px) {
+  .gallery-dialog { width: 100%; max-width: 100%; height: 100dvh; max-height: 100dvh; margin: 0; }
+  .gallery-dialog[open] { display: flex; flex-direction: column; }
+  .gallery-dialog > div { flex-shrink: 0; }
+  .gallery-dialog > div:first-child { padding-top: max(12px, env(safe-area-inset-top)); }
+  .gallery-dialog > div:last-child { padding-bottom: max(16px, env(safe-area-inset-bottom)); }
+  .gallery-dialog [data-expanded] { flex: 1; min-height: 0; height: 0 !important; }
+  .gallery-dialog [data-close] { white-space: nowrap; }
+}
+</style>
+<script>
+  document.querySelectorAll<HTMLElement>('[data-gallery]').forEach((gallery) => {
+    const photos = Array.from(gallery.querySelectorAll<HTMLButtonElement>('[data-photo]'));
+    const dialog = gallery.querySelector<HTMLDialogElement>('dialog')!;
+    const expanded = gallery.querySelector<HTMLImageElement>('[data-expanded]')!;
+    const counter = gallery.querySelector<HTMLElement>('[data-counter]')!;
+    let current = 0;
+    let previousOverflow = '';
+    const show = (index: number) => {
+      current = (index + photos.length) % photos.length;
+      expanded.src = photos[current].dataset.src!;
+      expanded.alt = photos[current].dataset.alt!;
+      counter.textContent = `${current + 1} / ${photos.length}`;
+    };
+    photos.forEach((photo, index) => photo.addEventListener('click', () => {
+      show(index);
+      previousOverflow = document.body.style.overflow;
+      document.body.style.overflow = 'hidden';
+      dialog.showModal();
+    }));
+    gallery.querySelector('[data-close]')!.addEventListener('click', () => dialog.close());
+    gallery.querySelector('[data-prev]')!.addEventListener('click', () => show(current - 1));
+    gallery.querySelector('[data-next]')!.addEventListener('click', () => show(current + 1));
+    dialog.addEventListener('keydown', (event) => {
+      if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
+        event.preventDefault();
+        show(current + (event.key === 'ArrowRight' ? 1 : -1));
+      }
+    });
+    dialog.addEventListener('close', () => {
+      document.body.style.overflow = previousOverflow;
+      photos[current].focus();
+    });
+    dialog.addEventListener('click', (event) => {
+      const rect = dialog.getBoundingClientRect();
+      if (event.target === dialog && (event.clientX < rect.left || event.clientX > rect.right || event.clientY < rect.top || event.clientY > rect.bottom)) dialog.close();
+    });
+  });
+</script>

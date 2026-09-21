@@ -1,0 +1,151 @@
+---
+import { withBase } from '../utils/paths.js';
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const values = [
+  {
+    title: 'Calidad',
+    description:
+      'Cuidamos la selección de materiales, la confección y cada acabado para entregar prendas que se distingan por su presentación, comodidad y durabilidad.',
+  },
+  {
+    title: 'Compromiso',
+    description:
+      'Asumimos cada pedido con responsabilidad y dedicación, buscando cumplir con las necesidades de nuestros clientes.',
+  },
+  {
+    title: 'Responsabilidad',
+    description:
+      'Trabajamos de manera organizada y consciente, respetando los acuerdos establecidos con cada cliente.',
+  },
+  {
+    title: 'Superación',
+    description:
+      'Creemos en la mejora constante. Buscamos aprender, actualizarnos e incorporar nuevas técnicas que nos permitan ofrecer cada vez mejores productos.',
+  },
+  {
+    title: 'Confianza',
+    description:
+      'Valoramos la relación que hemos construido con nuestros clientes a lo largo de los años y trabajamos para conservarla mediante un servicio cercano y transparente.',
+  },
+];
+---
+
+<BaseLayout
+  title="Nosotros"
+  description="Conoce la historia, misión y valores de Tomalito."
+>
+  <div>
+    <section class="container-site section-pad">
+      <div class="mb-12 max-w-2xl">
+        <p class="mb-3 text-sm font-medium uppercase tracking-[0.2em] text-gold">Quiénes somos</p>
+        <h1 class="text-3xl md:text-5xl">Confeccionamos confianza en cada prenda</h1>
+      </div>
+
+      <div class="grid items-start gap-10 lg:grid-cols-[1fr_1fr] lg:gap-14">
+        <article>
+          <h2 class="mb-5 text-2xl md:text-3xl">Nuestra historia</h2>
+          <div class="space-y-5 leading-relaxed text-carbon/80">
+            <p>
+              Nuestra historia comenzó hace más de 12 años, trabajando en la elaboración y maquila
+              de uniformes escolares para diferentes instituciones educativas, principalmente en la
+              ciudad de Riobamba. Durante ese tiempo adquirimos experiencia, conocimientos y, sobre
+              todo, el deseo de algún día construir nuestro propio emprendimiento.
+            </p>
+            <p>
+              Gracias al apoyo y la iniciativa de una persona que confió en nuestro trabajo, en el
+              año 2017 dimos un paso importante y nació Creaciones Estefi Sport.
+            </p>
+            <p>
+              Comenzamos con un pequeño local y trabajando únicamente con uniformes de dos
+              instituciones educativas. Era un nuevo reto y no sabíamos hasta dónde podríamos llegar,
+              pero con esfuerzo, sacrificio y dedicación continuamos trabajando para ganarnos la
+              confianza de nuestros clientes.
+            </p>
+            <p>
+              Con el paso de los años fuimos creciendo, mejorando nuestros procesos, incorporando
+              nuevas técnicas y ampliando nuestros productos y servicios. Cada experiencia nos ayudó
+              a entender mejor las necesidades de nuestros clientes y a fortalecer nuestro compromiso
+              con la calidad.
+            </p>
+            <p>
+              Como parte de esta evolución, decidimos renovar nuestra identidad y dar inicio a una
+              nueva etapa bajo el nombre de Tomalito Confecciones y Bordados, manteniendo la
+              experiencia y los valores que nos acompañan desde nuestros inicios, pero con una visión
+              renovada hacia el futuro.
+            </p>
+            <p>
+              Hoy seguimos trabajando con el mismo compromiso con el que comenzamos, buscando mejorar
+              constantemente y elaborar prendas con materiales, confección y acabados de calidad,
+              porque queremos que nuestros clientes puedan ver y sentir la diferencia en cada uniforme.
+            </p>
+          </div>
+        </article>
+
+        <!-- Reemplaza este bloque por una etiqueta img cuando tengas la fotografía definitiva. -->
+        <div class="lg:sticky lg:top-28">
+          <div class="aspect-[4/3] overflow-hidden">
+            <img
+              src={withBase('/images/brand/nosotros.jpg')}
+              alt="Equipo Tomalito"
+              class="w-full h-full object-cover"
+              loading="lazy"
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="border-y border-line bg-white/30">
+      <div class="container-site grid gap-10 py-14 md:grid-cols-2 md:gap-16 md:py-20">
+        <article>
+          <p class="mb-3 text-sm font-medium uppercase tracking-[0.18em] text-gold">Nuestro propósito</p>
+          <h2 class="mb-4 text-2xl">Misión</h2>
+          <div class="space-y-4 leading-relaxed text-carbon/80">
+            <p>
+              Confeccionar uniformes y prendas de calidad que combinen comodidad, resistencia y buenos
+              acabados, ofreciendo una atención cercana y responsable a instituciones educativas,
+              universidades, empresas y organizaciones.
+            </p>
+            <p>
+              Trabajamos para que cada cliente reciba un producto elaborado con dedicación, cuidando
+              cada detalle y buscando siempre superar sus expectativas.
+            </p>
+          </div>
+        </article>
+
+        <article class="border-t border-line pt-10 md:border-l md:border-t-0 md:pl-16 md:pt-0">
+          <p class="mb-3 text-sm font-medium uppercase tracking-[0.18em] text-gold">Hacia dónde vamos</p>
+          <h2 class="mb-4 text-2xl">Visión</h2>
+          <div class="space-y-4 leading-relaxed text-carbon/80">
+            <p>
+              Ser una empresa reconocida por la calidad de sus confecciones y bordados, creciendo de
+              manera constante y convirtiéndonos en una opción de confianza para instituciones y empresas.
+            </p>
+            <p>
+              Buscamos seguir modernizando nuestros procesos, ampliar nuestros servicios y llegar a más
+              clientes, manteniendo siempre el compromiso, la atención personalizada y la calidad que
+              caracteriza a Tomalito.
+            </p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="container-site section-pad">
+      <div class="mb-10 max-w-xl">
+        <p class="mb-3 text-sm font-medium uppercase tracking-[0.2em] text-gold">Lo que nos define</p>
+        <h2 class="text-3xl md:text-4xl">Nuestros valores</h2>
+      </div>
+
+      <div class="grid gap-px overflow-hidden border border-line bg-line sm:grid-cols-2 lg:grid-cols-3">
+        {values.map((value, index) => (
+          <article class:list={["min-h-52 bg-cream p-7 md:p-8", index === values.length - 1 && "lg:col-span-2"]}>
+            <h3 class="mb-3 text-xl">{value.title}</h3>
+            <p class="text-sm leading-relaxed text-carbon/70">{value.description}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+  </div>
+</BaseLayout>

@@ -1,0 +1,39 @@
+---
+import { withBase } from '../../utils/paths.js';
+const services = [
+  { title: 'Confección a medida', description: 'Uniformes para colegios, empresas y organizaciones. Cuidamos el corte, la comodidad y cada acabado.', image: '/images/services/fabricacion.jpg', id: 'fabricacion' },
+  { title: 'Bordado institucional', description: 'Tu identidad, puntada a puntada. Logotipos y detalles que distinguen a tu institución.', image: '/images/services/bordado.jpg', id: 'bordado' },
+  { title: 'Vinil textil', description: 'Personaliza tus prendas con nombres, diseños y detalles que las hacen tuyas.', image: '/images/services/asesoria.jpg', id: 'vinil-textil' },
+];
+---
+
+<section class="section-pad bg-white border-y border-line" aria-labelledby="home-services-title">
+  <div class="container-site">
+    <div class="flex flex-col gap-6 md:flex-row md:justify-between md:items-end">
+      <div class="max-w-xl">
+        <p class="eyebrow mb-4 text-carbon/60">Nuestros servicios</p>
+        <h2 id="home-services-title" class="text-2xl md:text-3xl">De la idea a la última puntada.</h2>
+      </div>
+      <p class="max-w-sm text-sm leading-relaxed text-carbon/70">Confección, bordado y personalización en un mismo lugar. Cuéntanos qué necesitas y demos forma a tu proyecto.</p>
+    </div>
+
+    <div class="mt-7 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 items-start gap-4 xl:gap-6">
+      {services.map((s, index) => (
+        <a href={withBase(`/servicios#${s.id}`)} class="group block">
+          <div class="service-image-frame">
+            <img src={withBase(s.image)} alt={s.title} loading="lazy" class="block w-full h-full object-contain" />
+          </div>
+          <div class="pt-4">
+            <p class="eyebrow text-carbon/50 mb-3">Servicio {String(index + 1).padStart(2, '0')}</p>
+            <div class="flex items-center justify-between gap-3"><h3 class="text-xl">{s.title}</h3><span aria-hidden="true" class="text-xl">↗</span></div>
+            <p class="text-sm leading-relaxed text-carbon/70 mt-3">{s.description}</p>
+          </div>
+        </a>
+      ))}
+    </div>
+
+    <div class="text-center mt-7">
+      <a href={withBase('/servicios')} class="btn-primary">Conoce todos nuestros servicios ↗</a>
+    </div>
+  </div>
+</section>

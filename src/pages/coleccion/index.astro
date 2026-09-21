@@ -1,0 +1,78 @@
+---
+import { withBase } from '../../utils/paths.js';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SchoolGallery from '../../components/catalog/SchoolGallery.astro';
+import { getPublishedUniforms } from '../../data/uniforms.js';
+import { getWhatsappLink } from '../../data/site.js';
+import { upcomingUniforms } from '../../data/upcomingUniforms.js';
+const schools = getPublishedUniforms();
+---
+<BaseLayout title="Colección por colegios" description="Encuentra tu colegio y descubre sus uniformes. Confección y bordados Tomalito en Quito.">
+  <div class="container-site section-pad">
+    <header class="max-w-3xl">
+      <p class="eyebrow mb-3">Tomalito · Colección escolar</p>
+      <h1 class="text-3xl md:text-4xl">Tu colegio. Tu colección.</h1>
+      <p class="mt-3 max-w-xl text-sm text-carbon/70 leading-relaxed">Encuentra tu colegio y explora sus prendas. Acércate a los detalles y consúltanos por tallas y disponibilidad.</p>
+    </header>
+    {schools.length > 0 ? (
+      <>
+        <nav class="mt-6 border-y border-line py-4 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between" aria-label="Selecciona tu colegio">
+          <div><label for="school-select" class="block text-sm font-medium">Encuentra tu colegio</label><p class="text-xs text-carbon/60 mt-1">{schools.length} colecciones · Confección y bordados</p></div>
+          <select id="school-select" class="w-full sm:max-w-md border border-line bg-white px-4 py-3 text-sm text-carbon rounded-none">
+            <option value="">Selecciona una institución</option>
+            {schools.map((school) => <option value={school.slug}>{school.name}</option>)}
+          </select>
+        </nav>
+        {schools.map((school, index) => (
+          <section id={school.slug} class="scroll-mt-28 py-8 md:py-10 border-b border-line">
+            <div class="mb-5 flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
+              <div><p class="eyebrow mb-2 text-carbon/60">Colección {String(index + 1).padStart(2, '0')} · Uniformes escolares</p><h2 class="text-xl md:text-2xl max-w-2xl">{school.name}</h2></div>
+              <a href={withBase(`/coleccion/${school.slug}`)} class="text-xs uppercase tracking-widest underline underline-offset-8">Conoce la colección ↗</a>
+            </div>
+            <SchoolGallery images={school.images} name={school.name} compact />
+            <div class="mt-5"><a href={getWhatsappLink(`Hola, quisiera información sobre los uniformes de ${school.name}. ¿Qué tallas tienen disponibles?`)} target="_blank" rel="noopener noreferrer" class="btn-primary">Consultar por este colegio ↗</a></div>
+          </section>
+        ))}
+      </>
+    ) : <p class="py-16 text-carbon/70">Estamos preparando nuestra colección. Escríbenos para consultar por tu colegio.</p>}
+    <section class="pt-10" aria-labelledby="upcoming-title">
+      <div class="mb-6 max-w-2xl">
+        <p class="eyebrow mb-3 text-carbon/60">Lo que viene en Tomalito</p>
+        <h2 id="upcoming-title" class="text-2xl md:text-3xl">Próximamente, nuevos uniformes.</h2>
+        <p class="mt-3 text-sm leading-relaxed text-carbon/70">Aquí conocerás los próximos uniformes que confeccionaremos y las novedades de nuestra colección.</p>
+      </div>
+      {upcomingUniforms.length > 0 ? (
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
+          {upcomingUniforms.map((uniform) => (
+            <article class="border border-line">
+              <div class="aspect-[4/5] bg-neutral-50 flex items-center justify-center">
+                {uniform.image ? <img src={withBase(uniform.image)} alt={uniform.name} loading="lazy" class="block w-full h-full object-contain" /> : <span class="eyebrow text-carbon/50">Imagen próximamente</span>}
+              </div>
+              <div class="p-5">
+                <p class="eyebrow mb-2 text-carbon/60">Próximamente</p>
+                <h3 class="text-lg">{uniform.name}</h3>
+                <p class="mt-2 text-sm text-carbon/70">{uniform.description}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+      ) : (
+        <div class="border border-line bg-neutral-50 px-6 py-8 md:px-8 flex items-center gap-5">
+          <svg class="shrink-0 text-carbon/40" width="48" height="48" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round" aria-hidden="true"><path d="m17 8-11 7 6 10 5-3v18h14V22l5 3 6-10-11-7c-1 7-13 7-14 0Z" /></svg>
+          <div><h3 class="text-xl">Nuestra colección sigue creciendo.</h3><p class="mt-2 text-sm text-carbon/65">Muy pronto compartiremos aquí los nuevos modelos.</p></div>
+        </div>
+      )}
+    </section>
+  </div>
+</BaseLayout>
+
+<script>
+  document.querySelector<HTMLSelectElement>('#school-select')?.addEventListener('change', (event) => {
+    const select = event.currentTarget as HTMLSelectElement;
+    const section = document.getElementById(select.value);
+    if (section) {
+      section.scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth', block: 'start' });
+      history.replaceState(null, '', `#${select.value}`);
+    }
+  });
+</script>

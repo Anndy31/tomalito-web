@@ -1,0 +1,49 @@
+---
+import { withBase } from '../../utils/paths.js';
+---
+
+<section class="container-site section-pad">
+  <div class="mb-6 text-center">
+    <p class="eyebrow mb-3 text-carbon/60">Nuestra colección escolar</p>
+    <h2 class="text-2xl md:text-3xl">La identidad de cada institución.</h2>
+  </div>
+  <a href={withBase('/coleccion')} aria-label="Ver colección de uniformes por colegio" class="relative block bg-white">
+    <img
+      src={withBase('/images/lookbook/instituciones-bordadas.png')}
+      alt="Logos bordados de José María Vélaz, Tarqui, Montúfar, Otto Arosemena Gómez, Velasco Ibarra, 13 de Abril, Forestal, CEMEI, Humanístico Quito, Vicente Rocafuerte y 11 de Marzo"
+      width="1940"
+      height="811"
+      class="block w-full h-auto"
+      loading="lazy"
+    />
+    <img
+      src={withBase('/images/brand/tomalito-marca-agua.png')}
+      alt=""
+      aria-hidden="true"
+      width="1080"
+      height="520"
+      class="collection-watermark"
+      loading="lazy"
+    />
+  </a>
+    <div class="mt-6 flex flex-col items-center gap-4 text-center">
+      <a href={withBase('/coleccion')} class="btn-primary">
+        Ver colección completa
+      </a>
+    </div>
+</section>
+
+<style>
+  .collection-watermark {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 38%;
+    height: auto;
+    transform: translate(-50%, -50%);
+    filter: grayscale(1) brightness(.65);
+    opacity: .16;
+    pointer-events: none;
+    user-select: none;
+  }
+</style>

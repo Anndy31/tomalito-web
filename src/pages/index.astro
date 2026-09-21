@@ -1,0 +1,27 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/home/Hero.astro';
+import FeaturedUniforms from '../components/home/FeaturedUniforms.astro';
+import LookbookPreview from '../components/home/LookbookPreview.astro';
+import ServicesPreview from '../components/home/ServicesPreview.astro';
+---
+
+<BaseLayout
+  title="Inicio"
+  description="Uniformes escolares, confección y bordados para colegios, empresas y organizaciones. Conoce Tomalito en Quito."
+>
+  <Hero />
+
+  <!-- Presentación breve de marca -->
+  <section class="container-site section-pad text-center">
+    <p class="eyebrow mb-6">Diseñados para el día a día</p>
+    <p class="text-2xl md:text-4xl max-w-3xl mx-auto font-display leading-snug">
+      La identidad de tu colegio.<br />El cuidado de cada detalle.
+    </p>
+    <p class="mt-6 max-w-xl mx-auto text-carbon/70 leading-relaxed">Confeccionamos prendas para estudiar, trabajar y crecer. Descubre nuestros uniformes escolares y servicios de personalización.</p>
+  </section>
+
+  <FeaturedUniforms />
+  <LookbookPreview />
+  <ServicesPreview />
+</BaseLayout>

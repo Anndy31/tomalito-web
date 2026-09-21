@@ -1,0 +1,38 @@
+---
+import { withBase } from '../../utils/paths.js';
+---
+
+<section class="hero relative flex items-end">
+  <img
+    src={withBase('/images/lookbook/hero.jpg')}
+    alt="Uniforme Tomalito en uso"
+    class="absolute inset-0 w-full h-full object-cover"
+    fetchpriority="high"
+  />
+  <div class="absolute inset-0 bg-gradient-to-t from-carbon-dark/70 via-carbon-dark/10 to-transparent"></div>
+
+  <div class="container-site relative pb-10 md:pb-16 text-white">
+    <div class="max-w-lg">
+      <p class="eyebrow mb-4 text-white/90">Tomalito · Confecciones y bordados</p>
+      <h1 class="text-4xl md:text-6xl text-white leading-[1.08]">
+        Hechos para acompañarte.
+      </h1>
+      <p class="mt-4 text-white/85">
+        Uniformes para cada etapa. Confección y bordados con identidad propia.
+      </p>
+      <a href={withBase('/coleccion')} class="btn-primary mt-8 bg-cream text-carbon-dark border-cream hover:bg-gold hover:border-gold">
+        Encuentra tu colegio
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero { min-height: 480px; height: calc(100svh - 96px); }
+  @media (max-width: 639px) {
+    .hero { min-height: 420px; height: min(680px, calc(100svh - 72px)); }
+    .hero > .container-site { padding-bottom: 2rem; padding-top: 4rem; }
+    .hero h1 { font-size: clamp(2.25rem, 10vw, 3.25rem); }
+    .hero p:not(.eyebrow) { max-width: 30ch; line-height: 1.65; }
+  }
+</style>

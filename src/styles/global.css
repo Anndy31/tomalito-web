@@ -1,0 +1,97 @@
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Work+Sans:wght@400;500&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.eyebrow { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.22em; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto !important; }
+  *, *::before, *::after { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 6rem;
+  }
+  body {
+    @apply bg-white text-carbon font-sans;
+  }
+  img { max-width: 100%; }
+  h1, h2, h3, p, a { overflow-wrap: break-word; }
+  select { max-width: 100%; }
+  .grid > *, .flex > * { min-width: 0; }
+  h1, h2, h3 {
+    @apply font-display font-medium text-carbon-dark;
+    letter-spacing: -0.035em;
+  }
+  a {
+    @apply transition-colors;
+  }
+  /* Foco visible para navegación por teclado (accesibilidad, sección 16) */
+  a:focus-visible,
+  button:focus-visible,
+  input:focus-visible,
+  textarea:focus-visible {
+    outline: 2px solid theme('colors.gold');
+    outline-offset: 2px;
+  }
+}
+
+/* Controles cómodos y contenido legible en teléfonos. */
+@media (max-width: 639px) {
+  .container-site {
+    padding-inline: max(1rem, env(safe-area-inset-left)) max(1rem, env(safe-area-inset-right));
+  }
+  .btn-primary,
+  .btn-secondary {
+    width: 100%;
+    min-height: 48px;
+    padding: 14px 16px;
+    text-align: center;
+    line-height: 1.6;
+    white-space: normal;
+  }
+  select, input, textarea { font-size: 16px !important; }
+  .eyebrow { letter-spacing: .16em; line-height: 1.7; }
+  footer { margin-top: 3rem !important; padding-bottom: calc(72px + env(safe-area-inset-bottom)); }
+  footer a { display: inline-flex; align-items: center; min-height: 44px; }
+}
+
+@layer components {
+  /* Proporción de la fotografía de Uniformes de Enfermería (1081 × 708). */
+  .service-image-frame {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1081 / 708;
+    overflow: hidden;
+    flex-shrink: 0;
+    background: white;
+  }
+  .service-image-frame > img {
+    position: absolute;
+    inset: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
+  }
+  .service-image-frame > img[hidden] { display: none; }
+  .container-site {
+    width: 100%;
+    padding-inline: clamp(1rem, 3vw, 4rem);
+  }
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 border border-carbon-dark bg-white text-carbon-dark px-6 py-4
+           hover:bg-carbon-dark hover:text-white transition-colors text-xs tracking-widest;
+  }
+  .btn-secondary {
+    @apply inline-flex items-center gap-2 border border-line text-carbon px-6 py-3 rounded-sm
+           hover:border-carbon transition-colors text-sm tracking-wide;
+  }
+  .section-pad {
+    padding-block: clamp(2.5rem, 4vw, 4rem);
+  }
+}

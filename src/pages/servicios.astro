@@ -1,0 +1,177 @@
+---
+import { withBase } from '../utils/paths.js';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getWhatsappLink } from '../data/site.js';
+
+const services = [
+  {
+    title: 'Fabricación',
+    id: 'fabricacion',
+    description: 'Producción de uniformes a medida, desde el diseño hasta la entrega.',
+    images: ['/images/services/fabricacion.jpg'],
+  },
+  {
+    title: 'Bordado',
+    id: 'bordado',
+    description: 'Logotipos y detalles bordados con acabado profesional.',
+    images: ['/images/services/bordado.jpg'],
+  },
+  {
+    title: 'Uniformes de enfermería',
+    id: 'enfermeria',
+    description: 'Confección de uniformes cómodos, resistentes y profesionales para personal de salud.',
+    images: ['/images/services/estampado.jpg'],
+  },
+  {
+    title: 'Producción corporativa',
+    id: 'produccion-corporativa',
+    description: 'Pedidos en volumen para empresas e instituciones.',
+    images: [
+      '/images/services/produccion-corporativa.jpg',
+      '/images/services/produccion-corporativa-2.jpg',
+    ],
+  },
+  {
+    title: 'Vinil textil',
+    id: 'vinil-textil',
+    description: 'Realizamos corte de vinil para personalizar prendas, uniformes y otros productos.',
+    images: ['/images/services/asesoria.jpg'],
+  },
+];
+---
+
+<BaseLayout
+  title="Servicios"
+  description="Fabricación, personalización, bordado y asesoría en uniformes corporativos e industriales."
+>
+  <section class="container-site section-pad">
+    <header class="service-heading">
+      <div>
+        <p class="eyebrow text-carbon/60 mb-3">Confección · Bordado · Personalización</p>
+        <h1 class="text-3xl md:text-4xl">Servicios hechos a tu medida.</h1>
+      </div>
+     
+    </header>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 items-stretch gap-5 xl:gap-7">
+      {services.map((s) => (
+        <article id={s.id} class="service-card scroll-mt-32">
+          {s.images.length > 1 ? (
+            <div
+              class="service-media relative bg-line overflow-hidden group"
+              data-carousel
+              role="region"
+              aria-label={`Imágenes de ${s.title}`}
+            >
+              <div class="service-image-frame">
+              {s.images.map((img, i) => (
+                <img
+                  src={withBase(img)}
+                  alt={`${s.title} ${i + 1}`}
+                  loading="lazy"
+                  data-slide
+                  aria-hidden={i !== 0}
+                  hidden={i !== 0}
+                  class="w-full h-full object-contain"
+                />
+              ))}
+              </div>
+
+              <div class="carousel-controls">
+              <button
+                type="button"
+                data-prev
+                aria-label="Imagen anterior"
+                class="carousel-arrow carousel-arrow-prev"
+              >
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m14 5-7 7 7 7" /></svg>
+              </button>
+
+              <button
+                type="button"
+                data-next
+                aria-label="Imagen siguiente"
+                class="carousel-arrow carousel-arrow-next"
+              >
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m10 5 7 7-7 7" /></svg>
+              </button>
+
+              <div class="flex gap-1.5 rounded-full bg-black/25 px-3 py-2 order-2" aria-hidden="true">
+                {s.images.map((_, i) => (
+                  <span
+                    data-dot
+                    class={`block w-1.5 h-1.5 rounded-full transition-colors duration-300 ${i === 0 ? 'bg-white' : 'bg-white/40'}`}
+                  />
+                ))}
+              </div>
+              </div>
+            </div>
+          ) : (
+            <div class="service-media">
+            <div class="service-image-frame overflow-hidden">
+              <img
+                src={withBase(s.images[0])}
+                alt={s.title}
+                loading="lazy"
+                class="w-full h-full object-contain"
+              />
+            </div>
+            </div>
+          )}
+
+          <div class="service-copy">
+            <h2 class="text-xl">{s.title}</h2>
+            <p class="text-carbon/70 text-sm mt-3 leading-relaxed">{s.description}</p>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .service-heading { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; padding-bottom: 28px; margin-bottom: 28px; border-bottom: 1px solid #e8e8e8; }
+  .service-card { display: flex; flex-direction: column; border: 1px solid #e8e8e8; background: white; overflow: hidden; transition: border-color .2s, box-shadow .2s; }
+  .service-card:hover, .service-card:focus-within { border-color: #bdbdbd; box-shadow: 0 8px 24px rgb(0 0 0 / 4%); }
+  .service-copy { display: flex; flex-direction: column; flex: 1; padding: 22px; }
+  .service-help { display: flex; flex-direction: column; justify-content: center; padding: clamp(24px, 3vw, 48px); border: 1px solid #e8e8e8; background: #fafafa; }
+  @media (max-width: 900px) { .service-heading { flex-direction: column; align-items: flex-start; } }
+  .service-media { width: 100%; background: white; }
+  .service-media img[hidden] { display: none; }
+  .carousel-controls { display: flex; align-items: center; justify-content: center; gap: 18px; height: 60px; padding: 8px; border-bottom: 1px solid #e8e8e8; }
+  .carousel-arrow { display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; border: 1px solid #e8e8e8; border-radius: 50%; background: white; color: #292929; box-shadow: 0 2px 10px rgb(0 0 0 / 6%); transition: background .2s, box-shadow .2s; }
+  .carousel-arrow-prev { order: 1; }
+  .carousel-arrow-next { order: 3; }
+  .carousel-arrow:hover { background: white; box-shadow: 0 3px 14px rgb(0 0 0 / 20%); }
+  .carousel-arrow:focus-visible { outline: 2px solid #292929; outline-offset: 3px; }
+</style>
+
+<script>
+  document.querySelectorAll('[data-carousel]').forEach((carousel) => {
+    const slides = Array.from(carousel.querySelectorAll<HTMLImageElement>('[data-slide]'));
+    const dots = Array.from(carousel.querySelectorAll('[data-dot]'));
+    const prevBtn = carousel.querySelector('[data-prev]');
+    const nextBtn = carousel.querySelector('[data-next]');
+    let current = 0;
+
+    function goTo(index: number) {
+      slides[current].hidden = true;
+      slides[current].setAttribute('aria-hidden', 'true');
+      dots[current].classList.replace('bg-white', 'bg-white/40');
+      current = (index + slides.length) % slides.length;
+      slides[current].hidden = false;
+      slides[current].setAttribute('aria-hidden', 'false');
+      dots[current].classList.replace('bg-white/40', 'bg-white');
+    }
+
+    prevBtn?.addEventListener('click', () => goTo(current - 1));
+    nextBtn?.addEventListener('click', () => goTo(current + 1));
+    carousel.addEventListener('keydown', (event) => {
+      const keyEvent = event as KeyboardEvent;
+      if (keyEvent.key === 'ArrowLeft' || keyEvent.key === 'ArrowRight') {
+        keyEvent.preventDefault();
+        goTo(current + (keyEvent.key === 'ArrowRight' ? 1 : -1));
+      }
+    });
+  });
+</script>
