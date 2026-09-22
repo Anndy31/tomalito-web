@@ -1,4 +1,5 @@
 ---
+import ArrowUpRight from '../../components/ui/ArrowUpRight.astro';
 import { withBase } from '../../utils/paths.js';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import SchoolGallery from '../../components/catalog/SchoolGallery.astro';
@@ -27,10 +28,10 @@ const schools = getPublishedUniforms();
           <section id={school.slug} class="scroll-mt-28 py-8 md:py-10 border-b border-line">
             <div class="mb-5 flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
               <div><p class="eyebrow mb-2 text-carbon/60">Colección {String(index + 1).padStart(2, '0')} · Uniformes escolares</p><h2 class="text-xl md:text-2xl max-w-2xl">{school.name}</h2></div>
-              <a href={withBase(`/coleccion/${school.slug}`)} class="text-xs uppercase tracking-widest underline underline-offset-8">Conoce la colección ↗</a>
+              <a href={withBase(`/coleccion/${school.slug}`)} class="text-xs uppercase tracking-widest underline underline-offset-8">Conoce la colección <ArrowUpRight /></a>
             </div>
             <SchoolGallery images={school.images} name={school.name} compact />
-            <div class="mt-5"><a href={getWhatsappLink(`Hola, quisiera información sobre los uniformes de ${school.name}. ¿Qué tallas tienen disponibles?`)} target="_blank" rel="noopener noreferrer" class="btn-primary">Consultar por este colegio ↗</a></div>
+            <div class="mt-5"><a href={getWhatsappLink(`Hola, quisiera información sobre los uniformes de ${school.name}. ¿Qué tallas tienen disponibles?`)} target="_blank" rel="noopener noreferrer" class="btn-primary">Consultar por este colegio <ArrowUpRight /></a></div>
           </section>
         ))}
       </>

@@ -1,4 +1,5 @@
 ---
+import ArrowUpRight from '../components/ui/ArrowUpRight.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { siteInfo, getWhatsappLink } from '../data/site.js';
 
@@ -55,7 +56,7 @@ const phoneNumbers = [
               class="mt-3 inline-flex items-center gap-2 text-sm text-carbon-dark underline decoration-gold underline-offset-4 hover:text-gold"
             >
               Ver ubicación en Google Maps
-              <span aria-hidden="true">↗</span>
+              <span aria-hidden="true"><ArrowUpRight /></span>
             </a>
           </div>
 

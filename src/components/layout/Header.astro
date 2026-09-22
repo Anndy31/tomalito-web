@@ -1,4 +1,5 @@
 ---
+import ArrowUpRight from '../ui/ArrowUpRight.astro';
 import { withBase } from '../../utils/paths.js';
 import { uniforms } from '../../data/uniforms.js';
 const isCurrent = (path: string) => Astro.url.pathname.replace(/\/$/, '') === withBase(path).replace(/\/$/, '');
@@ -25,18 +26,18 @@ const isCurrent = (path: string) => Astro.url.pathname.replace(/\/$/, '') === wi
         <button type="button" id="menu-close" class="flex items-center gap-3 p-3 text-xs uppercase tracking-widest" aria-label="Cerrar menú">Cerrar <span class="text-2xl" aria-hidden="true">×</span></button>
       </div>
       <nav aria-label="Navegación principal" class="drawer-nav">
-        <a href={withBase('/')} aria-current={isCurrent('/') ? 'page' : undefined}>Inicio <span aria-hidden="true">↗</span></a>
+        <a href={withBase('/')} aria-current={isCurrent('/') ? 'page' : undefined}>Inicio <span aria-hidden="true"><ArrowUpRight /></span></a>
         <details>
           <summary>Colección por colegios <span aria-hidden="true">+</span></summary>
           <div class="sub-links">
-            <a href={withBase('/coleccion')} aria-current={isCurrent('/coleccion') ? 'page' : undefined}>Ver todos los colegios ↗</a>
+            <a href={withBase('/coleccion')} aria-current={isCurrent('/coleccion') ? 'page' : undefined}>Ver todos los colegios <ArrowUpRight /></a>
             {uniforms.map((school) => <a href={withBase(`/coleccion/${school.slug}`)} aria-current={isCurrent(`/coleccion/${school.slug}`) ? 'page' : undefined}>{school.name}</a>)}
           </div>
         </details>
         <details>
           <summary>Servicios <span aria-hidden="true">+</span></summary>
           <div class="sub-links">
-            <a href={withBase('/servicios')} aria-current={isCurrent('/servicios') ? 'page' : undefined}>Todos los servicios ↗</a>
+            <a href={withBase('/servicios')} aria-current={isCurrent('/servicios') ? 'page' : undefined}>Todos los servicios <ArrowUpRight /></a>
             <a href={withBase('/servicios#fabricacion')}>Fabricación</a>
             <a href={withBase('/servicios#bordado')}>Bordado</a>
             <a href={withBase('/servicios#enfermeria')}>Uniformes de enfermería</a>
@@ -44,8 +45,8 @@ const isCurrent = (path: string) => Astro.url.pathname.replace(/\/$/, '') === wi
             <a href={withBase('/servicios#vinil-textil')}>Vinil textil</a>
           </div>
         </details>
-        <a href={withBase('/nosotros')} aria-current={isCurrent('/nosotros') ? 'page' : undefined}>Nosotros <span aria-hidden="true">↗</span></a>
-        <a href={withBase('/contacto')} aria-current={isCurrent('/contacto') ? 'page' : undefined}>Contacto <span aria-hidden="true">↗</span></a>
+        <a href={withBase('/nosotros')} aria-current={isCurrent('/nosotros') ? 'page' : undefined}>Nosotros <span aria-hidden="true"><ArrowUpRight /></span></a>
+        <a href={withBase('/contacto')} aria-current={isCurrent('/contacto') ? 'page' : undefined}>Contacto <span aria-hidden="true"><ArrowUpRight /></span></a>
       </nav>
       <div class="mt-12 pt-7 border-t border-line">
         <p class="text-xs text-carbon/60">Confecciones y bordados · Quito, Ecuador</p>

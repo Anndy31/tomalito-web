@@ -1,4 +1,5 @@
 ---
+import ArrowUpRight from '../ui/ArrowUpRight.astro';
 import { withBase } from '../../utils/paths.js';
 const services = [
   { title: 'Confección a medida', description: 'Uniformes para colegios, empresas y organizaciones. Cuidamos el corte, la comodidad y cada acabado.', image: '/images/services/fabricacion.jpg', id: 'fabricacion' },
@@ -25,7 +26,7 @@ const services = [
           </div>
           <div class="pt-4">
             <p class="eyebrow text-carbon/50 mb-3">Servicio {String(index + 1).padStart(2, '0')}</p>
-            <div class="flex items-center justify-between gap-3"><h3 class="text-xl">{s.title}</h3><span aria-hidden="true" class="text-xl">↗</span></div>
+            <div class="flex items-center justify-between gap-3"><h3 class="text-xl">{s.title}</h3><span aria-hidden="true" class="text-xl"><ArrowUpRight /></span></div>
             <p class="text-sm leading-relaxed text-carbon/70 mt-3">{s.description}</p>
           </div>
         </a>
@@ -33,7 +34,7 @@ const services = [
     </div>
 
     <div class="text-center mt-7">
-      <a href={withBase('/servicios')} class="btn-primary">Conoce todos nuestros servicios ↗</a>
+      <a href={withBase('/servicios')} class="btn-primary">Conoce todos nuestros servicios <ArrowUpRight /></a>
     </div>
   </div>
 </section>

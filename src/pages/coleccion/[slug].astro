@@ -1,4 +1,5 @@
 ---
+import ArrowUpRight from '../../components/ui/ArrowUpRight.astro';
 import { withBase } from '../../utils/paths.js';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import SchoolGallery from '../../components/catalog/SchoolGallery.astro';
@@ -26,7 +27,7 @@ const { uniform } = Astro.props;
       <div>
         <h2 class="text-2xl">Encuentra tu talla.</h2>
         <p class="mt-3 text-carbon/70 leading-relaxed">Consulta las tallas y la disponibilidad de las prendas. Te acompañamos en tu elección.</p>
-        <a href={getWhatsappLink(`Hola, quisiera información sobre los uniformes de ${uniform.name}. ¿Qué tallas tienen disponibles?`)} target="_blank" rel="noopener noreferrer" class="btn-primary mt-6">Consultar esta colección ↗</a>
+        <a href={getWhatsappLink(`Hola, quisiera información sobre los uniformes de ${uniform.name}. ¿Qué tallas tienen disponibles?`)} target="_blank" rel="noopener noreferrer" class="btn-primary mt-6">Consultar esta colección <ArrowUpRight /></a>
       </div>
     </div>
   </section>
