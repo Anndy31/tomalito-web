@@ -52,7 +52,7 @@ const schools = getPublishedUniforms();
               <div class="p-5">
                 <p class="eyebrow mb-2 text-carbon/60">Próximamente</p>
                 <h3 class="text-lg">{uniform.name}</h3>
-                <p class="mt-2 text-sm text-carbon/70">{uniform.description}</p>
+                {uniform.description && <p class="mt-2 text-sm text-carbon/70">{uniform.description}</p>}
               </div>
             </article>
           ))}
