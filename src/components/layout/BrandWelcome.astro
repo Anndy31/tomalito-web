@@ -1,0 +1,79 @@
+---
+import { withBase } from '../../utils/paths.js';
+---
+
+<div id="brand-welcome" hidden aria-hidden="true">
+  <img src={withBase('/images/brand/Logo.png')} alt="" width="320" height="320" loading="eager" />
+</div>
+
+<style>
+  #brand-welcome {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: grid;
+    place-items: center;
+    background: #fff;
+  }
+  #brand-welcome.is-ready { animation: welcome-away 800ms ease-in-out 1200ms forwards; }
+  #brand-welcome[hidden] { display: none; }
+  #brand-welcome img {
+    width: min(320px, 65vw);
+    height: auto;
+    max-height: 65vh;
+    object-fit: contain;
+    opacity: 0;
+  }
+  #brand-welcome.is-ready img { animation: welcome-logo 700ms cubic-bezier(.22, 1, .36, 1) both; }
+  @keyframes welcome-logo {
+    from { opacity: 0; transform: scale(.97); }
+    to { opacity: 1; transform: scale(1); }
+  }
+  @keyframes welcome-away {
+    to { opacity: 0; visibility: hidden; pointer-events: none; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    #brand-welcome { display: none; }
+  }
+</style>
+
+<script is:inline>
+  (() => {
+    const welcome = document.getElementById('brand-welcome');
+    if (!welcome) return;
+    // Only welcome visitors arriving from Google, once per tab session.
+    try {
+      const referrerHost = new URL(document.referrer).hostname;
+      const fromGoogle = /^(?:www\.)?google\.(?:com|[a-z]{2}|com\.[a-z]{2}|co\.[a-z]{2})$/.test(referrerHost);
+      if (!fromGoogle) return;
+      const seen = sessionStorage.getItem('tomalito-welcome-seen');
+      sessionStorage.setItem('tomalito-welcome-seen', '1');
+      if (seen || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    } catch {
+      // The website stays immediately accessible when storage is unavailable.
+      return;
+    }
+    welcome.hidden = false;
+    const dismiss = () => { welcome.hidden = true; };
+    welcome.addEventListener('animationend', (event) => {
+      if (event.target === welcome) dismiss();
+    });
+    const logo = welcome.querySelector('img');
+    const start = () => {
+      if (welcome.hidden || welcome.classList.contains('is-ready')) return;
+      welcome.classList.add('is-ready');
+      window.setTimeout(dismiss, 2100);
+    };
+    // Give the logo its full screen time even on a first visit with a cold cache.
+    logo.addEventListener('load', start, { once: true });
+    logo.addEventListener('error', dismiss, { once: true });
+    if (logo.complete) {
+      if (logo.naturalWidth > 0) start();
+      else dismiss();
+    }
+    // Never leave the overlay covering the site, even if animations are disabled.
+    window.setTimeout(dismiss, 10000);
+    document.addEventListener('keydown', dismiss, { once: true });
+    window.addEventListener('pagehide', dismiss, { once: true });
+  })();
+</script>

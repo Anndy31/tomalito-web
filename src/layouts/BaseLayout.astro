@@ -1,6 +1,7 @@
 ---
 import { withBase } from '../utils/paths.js';
 import Header from '../components/layout/Header.astro';
+import BrandWelcome from '../components/layout/BrandWelcome.astro';
 import Footer from '../components/layout/Footer.astro';
 import WhatsappFloat from '../components/layout/WhatsappFloat.astro';
 import '../styles/global.css';
@@ -45,6 +46,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <meta name="twitter:image" content={new URL(withBase(image), Astro.site)} />
   </head>
   <body>
+    <BrandWelcome />
     <Header />
     <main>
       <slot />
